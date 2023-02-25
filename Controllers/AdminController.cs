@@ -43,9 +43,14 @@ namespace BTPSKANPUR.Controllers
                 };
                 btps.Courses.Add(cr);
                 btps.SaveChanges();
+                return RedirectToAction("showCourses");
+            }
+            else
+            {
+                return RedirectToAction("Index");
             }
             
-            return View();
+            //return View();
         }
    
         public ActionResult showCourses()
@@ -97,9 +102,32 @@ namespace BTPSKANPUR.Controllers
             cr.price = course.price;
             cr.description = course.description;
             btps.SaveChanges();
-
-
             return View(cr);
         }
+
+
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("showCourses");
+            }
+            var data = btps.Courses.FirstOrDefault(x => x.id == id);
+
+
+            if (data == null)
+            {
+                return RedirectToAction("showCourses");
+            }
+
+            string oldpath = Path.Combine(Server.MapPath(data.image));
+            System.IO.File.Delete(oldpath);
+            btps.Courses.Remove(data);
+            btps.SaveChanges();
+            return RedirectToAction("showCourses");
+        }
+
+
+
     }
 }

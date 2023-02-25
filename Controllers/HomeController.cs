@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BTPSKANPUR.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +9,11 @@ namespace BTPSKANPUR.Controllers
 {
     public class HomeController : Controller
     {
+        BTPSKANPUREntities btps = new BTPSKANPUREntities();
         public ActionResult Index()
         {
-            return View();
+            var data = btps.Courses.ToList();
+            return View(data);
         }
 
         public ActionResult About()
@@ -26,9 +29,22 @@ namespace BTPSKANPUR.Controllers
         {
             return View();
         }
-        public ActionResult Details()
+        public ActionResult Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var data = btps.Courses.FirstOrDefault(c=>c.id == id);
+
+            if (data == null)
+            {
+                return RedirectToAction("Index");
+
+            }
+
+            return View(data);
         }
     }
 }

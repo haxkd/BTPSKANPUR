@@ -8,7 +8,7 @@
 <h2>showCourses</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "")
 </p>
 <table class="table">
     <tr>
@@ -44,7 +44,7 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
             @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.ActionLink("Delete", "Delete", new { id=item.id }, new { @onclick = "return confirm('Are you sure want to delete?')" })
         </td>
     </tr>
 }
