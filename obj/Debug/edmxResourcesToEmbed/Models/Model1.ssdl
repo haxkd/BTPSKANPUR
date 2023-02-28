@@ -1,5 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="BTPSKANPURModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BoughtCourses">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="courseid" Type="int" />
+    <Property Name="userid" Type="int" />
+    <Property Name="purchased" Type="date" />
+  </EntityType>
   <EntityType Name="Course">
     <Key>
       <PropertyRef Name="id" />
@@ -20,6 +29,7 @@
     <Property Name="password" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityContainer Name="BTPSKANPURModelStoreContainer">
+    <EntitySet Name="BoughtCourses" EntityType="Self.BoughtCourses" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
   </EntityContainer>

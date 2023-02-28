@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="BTPSKANPURModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BoughtCourses">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="courseid" Type="int" />
+          <Property Name="userid" Type="int" />
+          <Property Name="purchased" Type="date" />
+        </EntityType>
         <EntityType Name="Course">
           <Key>
             <PropertyRef Name="id" />
@@ -25,6 +34,7 @@
           <Property Name="password" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityContainer Name="BTPSKANPURModelStoreContainer">
+          <EntitySet Name="BoughtCourses" EntityType="Self.BoughtCourses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -45,6 +55,7 @@
         <EntityContainer Name="BTPSKANPUREntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Courses" EntityType="Self.Course" />
           <EntitySet Name="Users" EntityType="BTPSKANPURModel.User" />
+          <EntitySet Name="BoughtCourses" EntityType="BTPSKANPURModel.BoughtCours" />
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -54,6 +65,15 @@
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="BoughtCours">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="courseid" Type="Int32" />
+          <Property Name="userid" Type="Int32" />
+          <Property Name="purchased" Type="DateTime" Precision="0" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -78,6 +98,16 @@
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BoughtCourses">
+            <EntityTypeMapping TypeName="BTPSKANPURModel.BoughtCours">
+              <MappingFragment StoreEntitySet="BoughtCourses">
+                <ScalarProperty Name="purchased" ColumnName="purchased" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="courseid" ColumnName="courseid" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

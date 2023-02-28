@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
+using System.ComponentModel.DataAnnotations;
 
 namespace BTPSKANPUR.Controllers
 {
@@ -28,7 +29,8 @@ namespace BTPSKANPUR.Controllers
         }
         public ActionResult Courses()
         {
-            return View();
+            var data = btps.Courses.ToList();
+            return View(data);
         }
         public ActionResult Details(int? id)
         {
@@ -56,11 +58,30 @@ namespace BTPSKANPUR.Controllers
                 return RedirectToAction("Index");
             }
             var data = btps.Courses.FirstOrDefault(c => c.id == id);
-
             if (data == null)
             {
                 return RedirectToAction("Index");
             }
+
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("login");
+            }
+            else
+            {
+                int userid = Convert.ToInt32(Session["userid"]);
+
+                BoughtCours cr = new BoughtCours()
+                {
+                    courseid = id,
+                    userid = userid,
+                    purchased = DateTime.Now,
+                };
+                btps.BoughtCourses.Add(cr);
+                btps.SaveChanges();
+            }
+
+
 
             return View();
         }
@@ -99,6 +120,59 @@ namespace BTPSKANPUR.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult login(LoginUserModel user)
+        {
+            if (ModelState.IsValid)
+            {
+                var existuser = btps.Users.FirstOrDefault(db => db.email == user.email);
+                if (existuser == null)
+                {
+                    ModelState.AddModelError("email", "Email not exist....!");
+                }
+                else
+                {
+                    if(existuser.password == user.password)
+                    {
+                        Session["userid"] = existuser.id;
+                        return RedirectToAction("dashboard");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("password", "Password is wrong....!");
+                    }
+                }
+            }
+            return View();
+        }
 
+        public ActionResult dashboard()
+        {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("login");
+            }
+            else
+            {
+                int userid = Convert.ToInt32(Session["userid"]);
+                var user = btps.Users.FirstOrDefault(x => x.id == userid);
+                return View(user);
+            }
+            return View();
+        }
+
+
+       
+
+    }
+
+    public class LoginUserModel
+    {
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        public string email { get; set; }
+        [Required]
+        [DataType(DataType.Password)]
+        public string password { get; set; }
     }
 }

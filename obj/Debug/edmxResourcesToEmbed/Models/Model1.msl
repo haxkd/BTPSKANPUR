@@ -22,5 +22,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="BoughtCourses">
+      <EntityTypeMapping TypeName="BTPSKANPURModel.BoughtCours">
+        <MappingFragment StoreEntitySet="BoughtCourses">
+          <ScalarProperty Name="purchased" ColumnName="purchased" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="courseid" ColumnName="courseid" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "login";
+}
+
+
+
+<div class="container-fluid px-0 py-5">
+    <div class="row justify-content-center bg-image mx-0 mb-5">
+        <div class="col-lg-6 py-5">
+            <div class="bg-white p-5 my-5">
+                <h1 class="text-center mb-4"> Login </h1>
+
+                @Html.ValidationSummary()
+
+                <form action="/Home/Login" method="post">
+                    <div class="form-row">
+                        
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <input type="email" class="form-control bg-light border-0" name="email" placeholder="Email" style="padding: 30px 20px;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <input type="password" class="form-control bg-light border-0" name="password" placeholder="password" style="padding: 30px 20px;">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm-12">
+                            <button class="btn btn-primary btn-block" type="submit" style="height: 60px;">Login</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
