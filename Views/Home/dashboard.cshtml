@@ -1,21 +1,47 @@
-﻿@model BTPSKANPUR.Models.User
+﻿@model BTPSKANPUR.Models.UserCourse
 @{
     ViewBag.Title = "dashboard";
 }
 
+@Model.user.id
 
-<div class="container">
-    <div class="row">
-        <div class="col-6">Id</div>
-        <div class="col-6">@Model.id</div>
-    </div>
-    <div class="row">
-        <div class="col-6">Name</div>
-        <div class="col-6">@Model.name</div>
-    </div>
-    <div class="row">
-        <div class="col-6">Email</div>
-        <div class="col-6">@Model.email</div>
-    </div>
 
-</div>
+
+@if (Model.bought.Count == 0)
+{
+    <div class="text-center">
+        <div class="alert alert-danger"> No course purchased yet......!</div>
+        <a class="btn btn-success rounded" href="/Home/Courses/">Purchase Now</a>
+    </div>
+}
+else
+{
+    int count = 1;
+    <div class="container">
+    <table>
+        <tr><th>Sr No.</th><th>Course Id</th><th>Purchaes Date</th><th>Action</th></tr>
+        @foreach (var item in Model.bought)
+        {
+
+            <tr><td>@count</td><td>@item.courseid</td><td>@item.purchased.ToString().Split(' ')[0]</td><td><a class="btn btn-success" href="/Home/Details/@item.courseid">See Course</a></td></tr>
+            count = count + 1;
+        }
+    </table>
+        </div>
+}
+
+@*<div class="container">
+        <div class="row">
+            <div class="col-6">Id</div>
+            <div class="col-6">@Model.id</div>
+        </div>
+        <div class="row">
+            <div class="col-6">Name</div>
+            <div class="col-6">@Model.name</div>
+        </div>
+        <div class="row">
+            <div class="col-6">Email</div>
+            <div class="col-6">@Model.email</div>
+        </div>
+
+    </div>*@

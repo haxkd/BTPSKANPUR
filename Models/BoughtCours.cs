@@ -6,7 +6,7 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
+using System.ComponentModel.DataAnnotations;
 namespace BTPSKANPUR.Models
 {
     using System;
@@ -17,6 +17,8 @@ namespace BTPSKANPUR.Models
         public int id { get; set; }
         public Nullable<int> courseid { get; set; }
         public Nullable<int> userid { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public Nullable<System.DateTime> purchased { get; set; }
     }
 }

@@ -155,8 +155,15 @@ namespace BTPSKANPUR.Controllers
             else
             {
                 int userid = Convert.ToInt32(Session["userid"]);
-                var user = btps.Users.FirstOrDefault(x => x.id == userid);
-                return View(user);
+                User user = btps.Users.FirstOrDefault(x => x.id == userid);
+                List<BoughtCours> bought = btps.BoughtCourses.Where(x=>x.userid==userid).ToList();
+                UserCourse us = new UserCourse()
+                {
+                    user = user,
+                    bought = bought
+
+                };
+                return View(us);
             }
             return View();
         }
@@ -175,4 +182,6 @@ namespace BTPSKANPUR.Controllers
         [DataType(DataType.Password)]
         public string password { get; set; }
     }
+
+   
 }

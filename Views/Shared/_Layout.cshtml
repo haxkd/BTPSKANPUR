@@ -69,21 +69,31 @@
             </button>
             <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
                 <div class="navbar-nav mx-auto py-0">
-                    @Html.ActionLink("Home", "Index", "Home", new { @class = "nav-item nav-link" })
-                    @Html.ActionLink("About", "About", "Home", new { @class = "nav-item nav-link" })
-                    @Html.ActionLink("Contact", "Contact", "Home", new { @class = "nav-item nav-link" })
-                    @Html.ActionLink("Courses", "Courses", "Home", new { @class = "nav-item nav-link" })
+                    @Html.ActionLink("Home", "Index", "Home",new { }, new { @class = "nav-item nav-link" })
+                    @Html.ActionLink("About", "About", "Home", new { }, new { @class = "nav-item nav-link" })
+                    @Html.ActionLink("Contact", "Contact", "Home", new { }, new { @class = "nav-item nav-link" })
+                    @Html.ActionLink("Courses", "Courses", "Home", new { }, new { @class = "nav-item nav-link" })
+
+                   
 
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Dashboard</a>
                         <div class="dropdown-menu m-0">
-                            <a href="detail.html" class="dropdown-item">Course Detail</a>
-                            <a href="feature.html" class="dropdown-item">Our Features</a>
-                            <a href="team.html" class="dropdown-item">Instructors</a>
-                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>
+                            @if (Session["userid"] != null)
+                            {
+                                @Html.ActionLink("Dashboard", "Dashboard", "Home", new { }, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Logout", "Logout", "Home", new { }, new { @class = "dropdown-item text-danger" })
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Login", "Login", "Home", new { }, new { @class = "dropdown-item" })
+                                @Html.ActionLink("Regsiter", "Register", "Home", new { }, new { @class = "dropdown-item" })
+                            }
                         </div>
                     </div>
-                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+            
+
+                    
                 </div>
                 <a href="" class="btn btn-primary py-2 px-4 d-none d-lg-block">Join Us</a>
             </div>
