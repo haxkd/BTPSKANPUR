@@ -126,3 +126,4 @@ C:\Users\Haxkd\source\repos\BTPSKANPUR\bin\System.Memory.xml
 C:\Users\Haxkd\source\repos\BTPSKANPUR\bin\System.Numerics.Vectors.xml
 C:\Users\Haxkd\source\repos\BTPSKANPUR\bin\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\Haxkd\source\repos\BTPSKANPUR\bin\System.Threading.Tasks.Extensions.xml
+C:\Users\Haxkd\source\repos\BTPSKANPUR\bin\Razorpay.dll

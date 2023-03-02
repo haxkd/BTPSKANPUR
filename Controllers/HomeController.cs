@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using System.ComponentModel.DataAnnotations;
+using Razorpay.Api;
+using Razorpay;
 
 namespace BTPSKANPUR.Controllers
 {
@@ -53,6 +55,7 @@ namespace BTPSKANPUR.Controllers
 
         public ActionResult enroll(int? id)
         {
+            Session["userid"] = 1;
             if (id == null)
             {
                 return RedirectToAction("Index");
@@ -69,16 +72,38 @@ namespace BTPSKANPUR.Controllers
             }
             else
             {
-                int userid = Convert.ToInt32(Session["userid"]);
 
-                BoughtCours cr = new BoughtCours()
-                {
-                    courseid = id,
-                    userid = userid,
-                    purchased = DateTime.Now,
-                };
-                btps.BoughtCourses.Add(cr);
-                btps.SaveChanges();
+                int amount = Convert.ToInt32(data.price) * 100;
+
+                Dictionary<string, object> input = new Dictionary<string, object>();
+                input.Add("amount",amount); // this amount should be same as transaction amount
+                input.Add("currency", "INR");
+                //input.Add("receipt", "12121");
+
+                string key = "rzp_test_WLhn7rrKlopFCG";
+                string secret = "Av4Rufmm7fDnY4k9N3rnu9NJ";
+
+                RazorpayClient client = new RazorpayClient(key, secret);
+
+                Order order = client.Order.Create(input);
+                string orderId = order["id"].ToString();
+
+                ViewBag.orderId = orderId.ToString();
+                ViewBag.amount = amount.ToString();
+
+
+
+
+                //int userid = Convert.ToInt32(Session["userid"]);
+
+                //BoughtCours cr = new BoughtCours()
+                //{
+                //    courseid = id,
+                //    userid = userid,
+                //    purchased = DateTime.Now,
+                //};
+                //btps.BoughtCourses.Add(cr);
+                //btps.SaveChanges();
             }
 
 
