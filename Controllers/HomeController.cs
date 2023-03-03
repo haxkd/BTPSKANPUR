@@ -73,25 +73,44 @@ namespace BTPSKANPUR.Controllers
             else
             {
 
-                int amount = Convert.ToInt32(data.price) * 100;
+                int courseid = Convert.ToInt32(id);
+                int userid = Convert.ToInt32(Session["userid"]);
+                int amount = Convert.ToInt32(data.price) * 100;             
 
-                Dictionary<string, object> input = new Dictionary<string, object>();
-                input.Add("amount",amount); // this amount should be same as transaction amount
-                input.Add("currency", "INR");
-                //input.Add("receipt", "12121");
 
-                string key = "rzp_test_WLhn7rrKlopFCG";
-                string secret = "Av4Rufmm7fDnY4k9N3rnu9NJ";
+                string orderId;
 
-                RazorpayClient client = new RazorpayClient(key, secret);
 
-                Order order = client.Order.Create(input);
-                string orderId = order["id"].ToString();
+                var payment = btps.CoursePayments.FirstOrDefault(x=>x.userid == userid && x.courseid==courseid && x.status=="pending");
+                if (payment != null)
+                {
+                    orderId = payment.orderid;
+                }
+                else
+                {
+                    Dictionary<string, object> input = new Dictionary<string, object>();
+                    input.Add("amount", amount); // this amount should be same as transaction amount
+                    input.Add("currency", "INR");
+                    //input.Add("receipt", "12121");
+                    string key = "rzp_test_WLhn7rrKlopFCG";
+                    string secret = "Av4Rufmm7fDnY4k9N3rnu9NJ";
+                    RazorpayClient client = new RazorpayClient(key, secret);
+                    Order order = client.Order.Create(input);
+                    orderId = order["id"].ToString();
+
+                    CoursePayment p = new CoursePayment() {
+                        userid = userid,
+                        courseid = courseid,
+                        orderid = orderId,
+                        status = "pending",
+                    };
+                    btps.CoursePayments.Add(p);
+                    btps.SaveChanges();
+                }
+
 
                 ViewBag.orderId = orderId.ToString();
                 ViewBag.amount = amount.ToString();
-
-
 
 
                 //int userid = Convert.ToInt32(Session["userid"]);
@@ -111,7 +130,18 @@ namespace BTPSKANPUR.Controllers
             return View();
         }
 
-        public ActionResult register()
+        [HttpPost]
+        public ActionResult enroll(string razorpay_payment_id,string razorpay_order_id,string razorpay_signature)
+        {
+            var payment = btps.CoursePayments.FirstOrDefault(x => x.orderid == razorpay_order_id);
+            payment.payid = razorpay_payment_id;
+            payment.signature = razorpay_signature;
+            payment.status = "success";
+            btps.SaveChanges();
+            return RedirectToAction("dashboard");
+        }
+
+            public ActionResult register()
         {
             return View();
         }

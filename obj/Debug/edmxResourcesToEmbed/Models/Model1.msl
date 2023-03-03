@@ -32,5 +32,19 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="CoursePayments">
+      <EntityTypeMapping TypeName="BTPSKANPURModel.CoursePayment">
+        <MappingFragment StoreEntitySet="CoursePayment">
+          <ScalarProperty Name="purchased" ColumnName="purchased" />
+          <ScalarProperty Name="signature" ColumnName="signature" />
+          <ScalarProperty Name="payid" ColumnName="payid" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="orderid" ColumnName="orderid" />
+          <ScalarProperty Name="courseid" ColumnName="courseid" />
+          <ScalarProperty Name="userid" ColumnName="userid" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

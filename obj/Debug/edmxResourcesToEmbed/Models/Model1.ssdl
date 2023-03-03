@@ -19,6 +19,19 @@
     <Property Name="image" Type="text" />
     <Property Name="description" Type="text" />
   </EntityType>
+  <EntityType Name="CoursePayment">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userid" Type="int" />
+    <Property Name="courseid" Type="int" />
+    <Property Name="orderid" Type="varchar" MaxLength="100" />
+    <Property Name="status" Type="varchar" MaxLength="50" />
+    <Property Name="payid" Type="varchar" MaxLength="100" />
+    <Property Name="signature" Type="varchar" MaxLength="200" />
+    <Property Name="purchased" Type="date" />
+  </EntityType>
   <EntityType Name="Users">
     <Key>
       <PropertyRef Name="id" />
@@ -31,6 +44,7 @@
   <EntityContainer Name="BTPSKANPURModelStoreContainer">
     <EntitySet Name="BoughtCourses" EntityType="Self.BoughtCourses" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CoursePayment" EntityType="Self.CoursePayment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
 </Schema>

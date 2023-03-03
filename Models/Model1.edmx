@@ -24,6 +24,19 @@
           <Property Name="image" Type="text" />
           <Property Name="description" Type="text" />
         </EntityType>
+        <EntityType Name="CoursePayment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userid" Type="int" />
+          <Property Name="courseid" Type="int" />
+          <Property Name="orderid" Type="varchar" MaxLength="100" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
+          <Property Name="payid" Type="varchar" MaxLength="100" />
+          <Property Name="signature" Type="varchar" MaxLength="200" />
+          <Property Name="purchased" Type="date" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="id" />
@@ -36,6 +49,7 @@
         <EntityContainer Name="BTPSKANPURModelStoreContainer">
           <EntitySet Name="BoughtCourses" EntityType="Self.BoughtCourses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CoursePayment" EntityType="Self.CoursePayment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -56,6 +70,7 @@
           <EntitySet Name="Courses" EntityType="Self.Course" />
           <EntitySet Name="Users" EntityType="BTPSKANPURModel.User" />
           <EntitySet Name="BoughtCourses" EntityType="BTPSKANPURModel.BoughtCours" />
+          <EntitySet Name="CoursePayments" EntityType="BTPSKANPURModel.CoursePayment" />
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -73,6 +88,19 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="courseid" Type="Int32" />
           <Property Name="userid" Type="Int32" />
+          <Property Name="purchased" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="CoursePayment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userid" Type="Int32" />
+          <Property Name="courseid" Type="Int32" />
+          <Property Name="orderid" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="payid" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="signature" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="purchased" Type="DateTime" Precision="0" />
         </EntityType>
       </Schema>
@@ -108,6 +136,20 @@
                 <ScalarProperty Name="purchased" ColumnName="purchased" />
                 <ScalarProperty Name="userid" ColumnName="userid" />
                 <ScalarProperty Name="courseid" ColumnName="courseid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CoursePayments">
+            <EntityTypeMapping TypeName="BTPSKANPURModel.CoursePayment">
+              <MappingFragment StoreEntitySet="CoursePayment">
+                <ScalarProperty Name="purchased" ColumnName="purchased" />
+                <ScalarProperty Name="signature" ColumnName="signature" />
+                <ScalarProperty Name="payid" ColumnName="payid" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="orderid" ColumnName="orderid" />
+                <ScalarProperty Name="courseid" ColumnName="courseid" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -12,11 +12,15 @@ namespace BTPSKANPUR.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class BoughtCours
+    public partial class CoursePayment
     {
         public int id { get; set; }
-        public Nullable<int> courseid { get; set; }
         public Nullable<int> userid { get; set; }
+        public Nullable<int> courseid { get; set; }
+        public string orderid { get; set; }
+        public string status { get; set; }
+        public string payid { get; set; }
+        public string signature { get; set; }
         public Nullable<System.DateTime> purchased { get; set; }
     }
 }
