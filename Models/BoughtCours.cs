@@ -18,5 +18,7 @@ namespace BTPSKANPUR.Models
         public Nullable<int> courseid { get; set; }
         public Nullable<int> userid { get; set; }
         public Nullable<System.DateTime> purchased { get; set; }
+        public string courseName { get; set; }
+        public string courseprice { get; set; }
     }
 }

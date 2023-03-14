@@ -269,6 +269,7 @@
     <Content Include="img\team-4.jpg" />
     <Content Include="img\testimonial-1.jpg" />
     <Content Include="img\testimonial-2.jpg" />
+    <Content Include="js\courseMail.html" />
     <Content Include="js\main.js" />
     <Content Include="lib\counterup\counterup.min.js" />
     <Content Include="lib\easing\easing.js" />

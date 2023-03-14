@@ -3,9 +3,7 @@
     ViewBag.Title = "dashboard";
 }
 
-@Model.user.id
-
-
+<h1 class="text-center mb-5">Welcome <span class="text-primary">@Model.user.name</span>..!</h1>
 
 @if (Model.bought.Count == 0)
 {
@@ -17,31 +15,35 @@
 else
 {
     int count = 1;
-    <div class="container">
-    <table>
-        <tr><th>Sr No.</th><th>Course Id</th><th>Purchaes Date</th><th>Action</th></tr>
-        @foreach (var item in Model.bought)
-        {
 
-            <tr><td>@count</td><td>@item.courseid</td><td>@item.purchased.ToString().Split(' ')[0]</td><td><a class="btn btn-success" href="/Home/Details/@item.courseid">See Course</a></td></tr>
-            count = count + 1;
-        }
-    </table>
+    <div class="container table-responsive">
+        <div class="alert alert-success rounded text-center" role="alert">
+            Purchased Courses
         </div>
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Course Name</th>
+                    <th class="text-center">Course Price</th>
+                    <th class="text-center">Purchase Date</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.bought)
+                {
+                    <tr>
+                        <th>@count</th>
+                        <td>@item.courseName</td>
+                        <td>@item.courseprice</td>
+                        <td>@item.purchased.ToString().Split(' ')[0]</td>
+                        <td class="text-center"><a class="btn btn-success" href="/Home/Details/@item.courseid">See Course</a></td>
+                    </tr>
+                    count = count + 1;
+                }
+            </tbody>
+        </table>
+    </div>
 }
-
-@*<div class="container">
-        <div class="row">
-            <div class="col-6">Id</div>
-            <div class="col-6">@Model.id</div>
-        </div>
-        <div class="row">
-            <div class="col-6">Name</div>
-            <div class="col-6">@Model.name</div>
-        </div>
-        <div class="row">
-            <div class="col-6">Email</div>
-            <div class="col-6">@Model.email</div>
-        </div>
-
-    </div>*@

@@ -8,6 +8,8 @@
     <Property Name="courseid" Type="int" />
     <Property Name="userid" Type="int" />
     <Property Name="purchased" Type="date" />
+    <Property Name="courseName" Type="varchar" MaxLength="250" />
+    <Property Name="courseprice" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Course">
     <Key>

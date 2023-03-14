@@ -33,6 +33,8 @@
     <Property Name="courseid" Type="Int32" />
     <Property Name="userid" Type="Int32" />
     <Property Name="purchased" Type="DateTime" Precision="0" />
+    <Property Name="courseName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="courseprice" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="CoursePayment">
     <Key>
