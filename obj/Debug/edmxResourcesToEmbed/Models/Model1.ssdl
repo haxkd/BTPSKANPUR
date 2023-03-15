@@ -11,6 +11,18 @@
     <Property Name="courseName" Type="varchar" MaxLength="250" />
     <Property Name="courseprice" Type="varchar" MaxLength="50" />
   </EntityType>
+  <EntityType Name="Contact">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userid" Type="int" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+    <Property Name="email" Type="varchar" MaxLength="50" />
+    <Property Name="number" Type="varchar" MaxLength="50" />
+    <Property Name="subject" Type="varchar" MaxLength="100" />
+    <Property Name="message" Type="text" />
+  </EntityType>
   <EntityType Name="Course">
     <Key>
       <PropertyRef Name="id" />
@@ -45,6 +57,7 @@
   </EntityType>
   <EntityContainer Name="BTPSKANPURModelStoreContainer">
     <EntitySet Name="BoughtCourses" EntityType="Self.BoughtCourses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CoursePayment" EntityType="Self.CoursePayment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />

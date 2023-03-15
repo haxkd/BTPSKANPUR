@@ -32,7 +32,33 @@ namespace BTPSKANPUR.Controllers
 
         public ActionResult Contact()
         {
+
             return View();
+        }
+        [HttpPost]
+        public ActionResult Contact(Contact cn)
+        {
+            int? userid = null;
+            if (Session["userid"] != null)
+            {
+                userid = (int)Session["userid"];
+            }
+            cn.userid = userid;
+            btps.Contacts.Add(cn);
+            btps.SaveChanges();
+            return View();
+        }
+        public ActionResult Contacts()
+        {
+            if (Session["userid"] == null)
+            {
+                return RedirectToAction("login");
+            }
+            int userid = (int)Session["userid"];
+
+            var cn = btps.Contacts.Where(x=>x.userid == userid).ToList();
+            
+            return View(cn);
         }
         public ActionResult Courses()
         {

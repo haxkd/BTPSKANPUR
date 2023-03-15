@@ -1,0 +1,42 @@
+﻿@model IEnumerable<BTPSKANPUR.Models.Contact>
+
+@{
+    ViewBag.Title = "Contacts";
+}
+
+@if (Model.Count() == 0)
+{
+    <div class="text-center">
+        <div class="alert alert-danger"> No Contact Messages yet......!</div>
+        <a class="btn btn-success rounded" href="/Home/Contact/">Contact Now</a>
+    </div>
+}
+else
+{
+    int count = 1;
+
+    <div class="container">
+        <div class="row row-cols-2">
+            @foreach (var item in Model)
+            {
+                <div class="col">
+                    <div class="card bg-light m-3">
+                        <div class="card-header">#@count</div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Name : @item.name</li>
+                            <li class="list-group-item">Email: @item.email</li>
+                            <li class="list-group-item">Number: @item.number</li>
+                        </ul>
+                        <div class="card-body">
+                            <h5 class="card-title">Subject: @item.subject</h5>
+                            <p class="card-text">Message: @Html.Raw(item.message)</p>
+                            <hr>
+                            <p class="card-text">Response: </p>
+                        </div>
+                    </div>
+                </div>
+                count++;
+            }
+        </div>
+    </div>
+}

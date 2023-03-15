@@ -15,6 +15,7 @@
     <EntitySet Name="Users" EntityType="BTPSKANPURModel.User" />
     <EntitySet Name="BoughtCourses" EntityType="BTPSKANPURModel.BoughtCours" />
     <EntitySet Name="CoursePayments" EntityType="BTPSKANPURModel.CoursePayment" />
+    <EntitySet Name="Contacts" EntityType="BTPSKANPURModel.Contact" />
   </EntityContainer>
   <EntityType Name="User">
     <Key>
@@ -48,5 +49,17 @@
     <Property Name="payid" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="signature" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="purchased" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="Contact">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userid" Type="Int32" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="subject" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>
