@@ -51,6 +51,15 @@
           <Property Name="signature" Type="varchar" MaxLength="200" />
           <Property Name="purchased" Type="date" />
         </EntityType>
+        <EntityType Name="forget">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="useremail" Type="varchar" MaxLength="50" />
+          <Property Name="keycode" Type="varchar" MaxLength="50" />
+          <Property Name="updateon" Type="date" />
+        </EntityType>
         <EntityType Name="Users">
           <Key>
             <PropertyRef Name="id" />
@@ -65,6 +74,7 @@
           <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CoursePayment" EntityType="Self.CoursePayment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="forget" EntityType="Self.forget" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -87,6 +97,7 @@
           <EntitySet Name="BoughtCourses" EntityType="BTPSKANPURModel.BoughtCours" />
           <EntitySet Name="CoursePayments" EntityType="BTPSKANPURModel.CoursePayment" />
           <EntitySet Name="Contacts" EntityType="BTPSKANPURModel.Contact" />
+          <EntitySet Name="forgets" EntityType="BTPSKANPURModel.forget" />
         </EntityContainer>
         <EntityType Name="User">
           <Key>
@@ -132,6 +143,15 @@
           <Property Name="number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="subject" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="forget">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="useremail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="keycode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="updateon" Type="DateTime" Precision="0" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -195,6 +215,16 @@
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="forgets">
+            <EntityTypeMapping TypeName="BTPSKANPURModel.forget">
+              <MappingFragment StoreEntitySet="forget">
+                <ScalarProperty Name="updateon" ColumnName="updateon" />
+                <ScalarProperty Name="keycode" ColumnName="keycode" />
+                <ScalarProperty Name="useremail" ColumnName="useremail" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

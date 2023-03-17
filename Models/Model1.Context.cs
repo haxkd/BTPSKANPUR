@@ -30,5 +30,6 @@ namespace BTPSKANPUR.Models
         public virtual DbSet<BoughtCours> BoughtCourses { get; set; }
         public virtual DbSet<CoursePayment> CoursePayments { get; set; }
         public virtual DbSet<Contact> Contacts { get; set; }
+        public virtual DbSet<forget> forgets { get; set; }
     }
 }

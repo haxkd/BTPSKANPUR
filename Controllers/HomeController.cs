@@ -56,8 +56,8 @@ namespace BTPSKANPUR.Controllers
             }
             int userid = (int)Session["userid"];
 
-            var cn = btps.Contacts.Where(x=>x.userid == userid).ToList();
-            
+            var cn = btps.Contacts.Where(x => x.userid == userid).ToList();
+
             return View(cn);
         }
         public ActionResult Courses()
@@ -167,7 +167,7 @@ namespace BTPSKANPUR.Controllers
             int userid = (int)payment.userid;
             int courseid = (int)payment.courseid;
 
-            var course = btps.Courses.FirstOrDefault(x=>x.id == courseid);
+            var course = btps.Courses.FirstOrDefault(x => x.id == courseid);
             var user = btps.Users.FirstOrDefault(x => x.id == userid);
 
             string name = user.name;
@@ -193,7 +193,7 @@ namespace BTPSKANPUR.Controllers
             btps.BoughtCourses.Add(bought);
             btps.SaveChanges();
 
-           
+
             sendMail(useremail, razorpay_order_id, name, coursename, price, courseid.ToString(), razorpay_payment_id);
             return RedirectToAction("dashboard");
         }
@@ -274,8 +274,76 @@ namespace BTPSKANPUR.Controllers
             return View();
         }
 
-       
+        public ActionResult forget()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult forget(string email)
+        {
+            var existuser = btps.Users.FirstOrDefault(db => db.email == email);
+            if (existuser == null)
+            {
+                ViewBag.msg = "Email Not Found";
+                return View();
+            }
 
+            var existkey = btps.forgets.FirstOrDefault(db => db.useremail == email);
+            string keycode;
+            if (existkey != null)
+            {
+                keycode = existkey.keycode;
+            }
+            else
+            {
+                var chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+                var stringChars = new char[30];
+                var random = new Random();
+                for (int i = 0; i < stringChars.Length; i++)
+                {
+                    stringChars[i] = chars[random.Next(chars.Length)];
+                }
+                keycode = new String(stringChars);
+
+                forget fgt = new forget()
+                {
+                    useremail = email,
+                    keycode = keycode,
+                    updateon = DateTime.Now.Date
+                };
+                btps.forgets.Add(fgt);
+                btps.SaveChanges();
+
+            }
+
+            sendForgetMail(email, keycode);
+            ViewBag.msg = "To Reset password check the mail....!";
+            return View();
+        }
+
+        public ActionResult reset(string id)
+        {
+            string keycode = id;
+            var checkkey = btps.forgets.FirstOrDefault(x=>x.keycode == keycode);
+            if (checkkey == null)
+            {
+                TempData["msg"] = "The Reset Link was wrong, please send it again....!";
+                return RedirectToAction("forget");
+            }
+            return View();
+        }
+        [HttpPost]
+        public ActionResult reset(string id,string password, string cpassword)
+        {
+            string keycode = id;
+            var checkkey = btps.forgets.FirstOrDefault(x => x.keycode == keycode);
+            if (checkkey == null)
+            {
+                TempData["msg"] = "The Reset Link was wrong, please send it again....!";
+                return RedirectToAction("forget");
+            }
+            return View();
+        }
         public ActionResult dashboard()
         {
             if (Session["userid"] == null)
@@ -317,6 +385,34 @@ namespace BTPSKANPUR.Controllers
                 mail.From = new MailAddress("haxkdmail@gmail.com");
                 mail.To.Add(useremail);
                 mail.Subject = "Purchased Course Summary";
+                mail.Body = body;
+                mail.IsBodyHtml = true;
+                //mail.Attachments.Add(new Attachment("D:\\TestFile.txt"));//--Uncomment this to send any attachment  
+                using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
+                {
+                    smtp.Credentials = new NetworkCredential("haxkdmail@gmail.com", "geneqppuemqmupls");
+                    smtp.EnableSsl = true;
+                    smtp.Send(mail);
+                }
+            }
+        }
+        public void sendForgetMail(string useremail, string keycode)
+        {
+            string body = string.Empty;
+            using (StreamReader reader = new StreamReader(Server.MapPath("~/js/forgetMail.html")))
+            {
+                body = reader.ReadToEnd();
+            }
+            body = body.Replace("{requestdate}", DateTime.Now.ToString());
+            body = body.Replace("{useremail}", useremail);
+            body = body.Replace("{keycode}", keycode);
+            
+
+            using (MailMessage mail = new MailMessage())
+            {
+                mail.From = new MailAddress("haxkdmail@gmail.com");
+                mail.To.Add(useremail);
+                mail.Subject = "Forget Password";
                 mail.Body = body;
                 mail.IsBodyHtml = true;
                 //mail.Attachments.Add(new Attachment("D:\\TestFile.txt"));//--Uncomment this to send any attachment  

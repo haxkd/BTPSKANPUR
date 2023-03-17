@@ -61,5 +61,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="forgets">
+      <EntityTypeMapping TypeName="BTPSKANPURModel.forget">
+        <MappingFragment StoreEntitySet="forget">
+          <ScalarProperty Name="updateon" ColumnName="updateon" />
+          <ScalarProperty Name="keycode" ColumnName="keycode" />
+          <ScalarProperty Name="useremail" ColumnName="useremail" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

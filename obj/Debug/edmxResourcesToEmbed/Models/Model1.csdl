@@ -16,6 +16,7 @@
     <EntitySet Name="BoughtCourses" EntityType="BTPSKANPURModel.BoughtCours" />
     <EntitySet Name="CoursePayments" EntityType="BTPSKANPURModel.CoursePayment" />
     <EntitySet Name="Contacts" EntityType="BTPSKANPURModel.Contact" />
+    <EntitySet Name="forgets" EntityType="BTPSKANPURModel.forget" />
   </EntityContainer>
   <EntityType Name="User">
     <Key>
@@ -61,5 +62,14 @@
     <Property Name="number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="subject" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="forget">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="useremail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="keycode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="updateon" Type="DateTime" Precision="0" />
   </EntityType>
 </Schema>

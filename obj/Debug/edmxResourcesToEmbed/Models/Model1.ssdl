@@ -46,6 +46,15 @@
     <Property Name="signature" Type="varchar" MaxLength="200" />
     <Property Name="purchased" Type="date" />
   </EntityType>
+  <EntityType Name="forget">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="useremail" Type="varchar" MaxLength="50" />
+    <Property Name="keycode" Type="varchar" MaxLength="50" />
+    <Property Name="updateon" Type="date" />
+  </EntityType>
   <EntityType Name="Users">
     <Key>
       <PropertyRef Name="id" />
@@ -60,6 +69,7 @@
     <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CoursePayment" EntityType="Self.CoursePayment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="forget" EntityType="Self.forget" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
   </EntityContainer>
 </Schema>
