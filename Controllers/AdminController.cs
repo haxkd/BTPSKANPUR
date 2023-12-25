@@ -33,7 +33,6 @@ namespace BTPSKANPUR.Controllers
                 string _path = Path.Combine(Server.MapPath(mypath), _FileName);
                 course.image.SaveAs(_path);
 
-
                 Course cr = new Course()
                 {
                     name = course.name,
@@ -49,9 +48,7 @@ namespace BTPSKANPUR.Controllers
             {
                 return RedirectToAction("Index");
             }
-            
             //return View();
-
         }
    
         public ActionResult showCourses()
