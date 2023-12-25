@@ -32,7 +32,6 @@ namespace BTPSKANPUR.Controllers
 
         public ActionResult Contact()
         {
-
             return View();
         }
         [HttpPost]
@@ -77,7 +76,6 @@ namespace BTPSKANPUR.Controllers
             if (data == null)
             {
                 return RedirectToAction("Index");
-
             }
 
             return View(data);
