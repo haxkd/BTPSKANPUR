@@ -56,6 +56,7 @@ namespace BTPSKANPUR.Controllers
             var data = btps.Courses.ToList();
             return View(data);
         }
+        
         public ActionResult Edit(int? id)
         {
             if (id == null)
