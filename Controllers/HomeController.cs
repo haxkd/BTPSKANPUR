@@ -34,6 +34,7 @@ namespace BTPSKANPUR.Controllers
         {
             return View();
         }
+        
         [HttpPost]
         public ActionResult Contact(Contact cn)
         {
@@ -47,6 +48,7 @@ namespace BTPSKANPUR.Controllers
             btps.SaveChanges();
             return View();
         }
+        
         public ActionResult Contacts()
         {
             if (Session["userid"] == null)
@@ -59,11 +61,13 @@ namespace BTPSKANPUR.Controllers
 
             return View(cn);
         }
+        
         public ActionResult Courses()
         {
             var data = btps.Courses.ToList();
             return View(data);
         }
+        
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -152,9 +156,6 @@ namespace BTPSKANPUR.Controllers
                 //btps.BoughtCourses.Add(cr);
                 //btps.SaveChanges();
             }
-
-
-
             return View();
         }
 
