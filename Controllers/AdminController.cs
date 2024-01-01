@@ -14,7 +14,6 @@ namespace BTPSKANPUR.Controllers
     {
         // GET: Admin
         BTPSKANPUREntities btps = new BTPSKANPUREntities();
-
         public ActionResult Index()
         {
             return View();
@@ -32,7 +31,6 @@ namespace BTPSKANPUR.Controllers
                 _FileName = rnd.Next() + _FileName;
                 string _path = Path.Combine(Server.MapPath(mypath), _FileName);
                 course.image.SaveAs(_path);
-
                 Course cr = new Course()
                 {
                     name = course.name,
