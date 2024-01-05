@@ -56,9 +56,7 @@ namespace BTPSKANPUR.Controllers
                 return RedirectToAction("login");
             }
             int userid = (int)Session["userid"];
-
             var cn = btps.Contacts.Where(x => x.userid == userid).ToList();
-
             return View(cn);
         }
         
@@ -74,14 +72,11 @@ namespace BTPSKANPUR.Controllers
             {
                 return RedirectToAction("Index");
             }
-
             var data = btps.Courses.FirstOrDefault(c => c.id == id);
-
             if (data == null)
             {
                 return RedirectToAction("Index");
             }
-
             return View(data);
         }
 
@@ -96,22 +91,16 @@ namespace BTPSKANPUR.Controllers
             {
                 return RedirectToAction("Index");
             }
-
             if (Session["userid"] == null)
             {
                 return RedirectToAction("login");
             }
             else
             {
-
                 int courseid = Convert.ToInt32(id);
                 int userid = Convert.ToInt32(Session["userid"]);
                 int amount = Convert.ToInt32(data.price) * 100;
-
-
                 string orderId;
-
-
                 var payment = btps.CoursePayments.FirstOrDefault(x => x.userid == userid && x.courseid == courseid && x.status == "pending");
                 if (payment != null)
                 {
@@ -128,7 +117,6 @@ namespace BTPSKANPUR.Controllers
                     RazorpayClient client = new RazorpayClient(key, secret);
                     Order order = client.Order.Create(input);
                     orderId = order["id"].ToString();
-
                     CoursePayment p = new CoursePayment()
                     {
                         userid = userid,
@@ -139,14 +127,9 @@ namespace BTPSKANPUR.Controllers
                     btps.CoursePayments.Add(p);
                     btps.SaveChanges();
                 }
-
-
                 ViewBag.orderId = orderId.ToString();
                 ViewBag.amount = amount.ToString();
-
-
                 //int userid = Convert.ToInt32(Session["userid"]);
-
                 //BoughtCours cr = new BoughtCours()
                 //{
                 //    courseid = id,
@@ -165,22 +148,16 @@ namespace BTPSKANPUR.Controllers
             var payment = btps.CoursePayments.FirstOrDefault(x => x.orderid == razorpay_order_id);
             int userid = (int)payment.userid;
             int courseid = (int)payment.courseid;
-
             var course = btps.Courses.FirstOrDefault(x => x.id == courseid);
             var user = btps.Users.FirstOrDefault(x => x.id == userid);
-
             string name = user.name;
             string useremail = user.email;
             string coursename = course.name;
             string price = course.price;
-
-
-
             payment.payid = razorpay_payment_id;
             payment.signature = razorpay_signature;
             payment.status = "success";
             btps.SaveChanges();
-
             BoughtCours bought = new BoughtCours()
             {
                 userid = userid,
@@ -191,8 +168,6 @@ namespace BTPSKANPUR.Controllers
             };
             btps.BoughtCourses.Add(bought);
             btps.SaveChanges();
-
-
             sendMail(useremail, razorpay_order_id, name, coursename, price, courseid.ToString(), razorpay_payment_id);
             return RedirectToAction("dashboard");
         }
@@ -205,6 +180,7 @@ namespace BTPSKANPUR.Controllers
             }
             return View();
         }
+        
         [HttpPost]
         public ActionResult register(UserModel user)
         {
@@ -225,13 +201,13 @@ namespace BTPSKANPUR.Controllers
                     };
                     btps.Users.Add(u);
                     btps.SaveChanges();
-
                     ModelState.Clear();
                     ModelState.AddModelError("msg", "User registration sucessfully");
                 }
             }
             return View();
         }
+        
         public ActionResult login()
         {
             if (Session["userid"] != null)
@@ -277,6 +253,7 @@ namespace BTPSKANPUR.Controllers
         {
             return View();
         }
+        
         [HttpPost]
         public ActionResult forget(string email)
         {
@@ -286,7 +263,6 @@ namespace BTPSKANPUR.Controllers
                 ViewBag.msg = "Email Not Found";
                 return View();
             }
-
             var existkey = btps.forgets.FirstOrDefault(db => db.useremail == email);
             string keycode;
             if (existkey != null)
@@ -303,7 +279,6 @@ namespace BTPSKANPUR.Controllers
                     stringChars[i] = chars[random.Next(chars.Length)];
                 }
                 keycode = new String(stringChars);
-
                 forget fgt = new forget()
                 {
                     useremail = email,
@@ -312,9 +287,7 @@ namespace BTPSKANPUR.Controllers
                 };
                 btps.forgets.Add(fgt);
                 btps.SaveChanges();
-
             }
-
             sendForgetMail(email, keycode);
             ViewBag.msg = "To Reset password check the mail....!";
             return View();
@@ -331,6 +304,7 @@ namespace BTPSKANPUR.Controllers
             }
             return View();
         }
+        
         [HttpPost]
         public ActionResult reset(string id,string password, string cpassword)
         {
@@ -343,6 +317,7 @@ namespace BTPSKANPUR.Controllers
             }
             return View();
         }
+        
         public ActionResult dashboard()
         {
             if (Session["userid"] == null)
@@ -363,6 +338,7 @@ namespace BTPSKANPUR.Controllers
             }
             return View();
         }
+        
         public void sendMail(string useremail, string orderid, string name, string coursename, string price, string courseid, string payid)
         {
             string body = string.Empty;
@@ -378,7 +354,6 @@ namespace BTPSKANPUR.Controllers
             body = body.Replace("{amount}", price);
             body = body.Replace("{courseid}", courseid);
             body = body.Replace("{payid}", payid);
-
             using (MailMessage mail = new MailMessage())
             {
                 mail.From = new MailAddress("haxkdmail@gmail.com");
@@ -395,6 +370,7 @@ namespace BTPSKANPUR.Controllers
                 }
             }
         }
+        
         public void sendForgetMail(string useremail, string keycode)
         {
             string body = string.Empty;
@@ -404,9 +380,7 @@ namespace BTPSKANPUR.Controllers
             }
             body = body.Replace("{requestdate}", DateTime.Now.ToString());
             body = body.Replace("{useremail}", useremail);
-            body = body.Replace("{keycode}", keycode);
-            
-
+            body = body.Replace("{keycode}", keycode);      
             using (MailMessage mail = new MailMessage())
             {
                 mail.From = new MailAddress("haxkdmail@gmail.com");
@@ -425,7 +399,6 @@ namespace BTPSKANPUR.Controllers
         }
     }
 
-
     public class LoginUserModel
     {
         [Required]
@@ -435,5 +408,4 @@ namespace BTPSKANPUR.Controllers
         [DataType(DataType.Password)]
         public string password { get; set; }
     }
-
 }
