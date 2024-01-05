@@ -10,6 +10,7 @@ using static System.Net.WebRequestMethods;
 
 namespace BTPSKANPUR.Controllers
 {
+
     public class AdminController : Controller
     {
         // GET: Admin
@@ -71,14 +72,10 @@ namespace BTPSKANPUR.Controllers
             return View(data);
         }
 
-
         [HttpPost]
         public ActionResult Edit(int id,CourseModel course)
         {
-
             Course cr = btps.Courses.FirstOrDefault(x => x.id == id);
-
-
             HttpPostedFileBase image = course.image;
             if (image != null)
             {
@@ -93,15 +90,12 @@ namespace BTPSKANPUR.Controllers
                 course.image.SaveAs(_path);
                 cr.image = mypath + "/" + _FileName;
             }
-            
-
             cr.name = course.name;
             cr.price = course.price;
             cr.description = course.description;
             btps.SaveChanges();
             return View(cr);
         }
-
 
         public ActionResult Delete(int? id)
         {
@@ -110,21 +104,15 @@ namespace BTPSKANPUR.Controllers
                 return RedirectToAction("showCourses");
             }
             var data = btps.Courses.FirstOrDefault(x => x.id == id);
-
-
             if (data == null)
             {
                 return RedirectToAction("showCourses");
             }
-
             string oldpath = Path.Combine(Server.MapPath(data.image));
             System.IO.File.Delete(oldpath);
             btps.Courses.Remove(data);
             btps.SaveChanges();
             return RedirectToAction("showCourses");
         }
-
-
-
     }
 }
